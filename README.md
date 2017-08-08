@@ -1,12 +1,13 @@
-##Send and Received with Globe Labs
+Send and Received with Globe Labs
+---
 
-###Install dependencies needed
+### Install dependencies needed
 
 ```
 npm install
 ```
 
-###Send an SMS
+### Send an SMS
 
 **PROTOCOL:** POST
 
@@ -45,7 +46,7 @@ npm install
 ```
 
 
-###Receive SMS
+### Receive SMS
 
 Set your own endpoint in `config.json`
 
