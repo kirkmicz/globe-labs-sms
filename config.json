@@ -1,0 +1,5 @@
+{
+  "sendURI": "https://devapi.globelabs.com.ph/smsmessaging/v1/outbound/",
+  "receivedURI": "{ endpoint of receiving }",
+  "shortCode": 2156
+}
