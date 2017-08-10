@@ -35,14 +35,12 @@ exports.send = function(req, res) {
       }
     }
   }
-console.log(config.sendURI + config.shortCode + "/requests?access_token=" + access_token)
+
   request.post({
     url: config.sendURI + config.shortCode + "/requests?access_token=" + access_token,
     form: obj
   }, function(error, response, body) {
-    console.log(response.statusCode)
     if(error || response.statusCode != 200) {
-      console.log(response.body)
       res.status(response.statusCode).send({ error: 'An error occurred! Please contact Administrator.' })
     } else {
       res.json(JSON.parse(response.body))
