@@ -10,6 +10,10 @@ const
 
 const stellarApi = config.url
 
+exports.main = (req, res) => {
+  res.json({ message: 'Back Off' })
+}
+
 
 /**
   URL params
