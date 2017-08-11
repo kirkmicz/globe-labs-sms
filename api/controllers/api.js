@@ -10,6 +10,53 @@ const
 
 const stellarApi = config.url
 
+
+/**
+  URL params
+  - code
+*/
+exports.subscribe = (req, res) => {
+  const obj = {
+    app_id: config.credentials.id,
+    app_secret: config.credentials.secret,
+    code: req.query.code
+  }
+
+  request.post({
+    url: config.tokenURI,
+    form: obj
+  }, (error, response, body) => {
+    if(error || response.statusCode != 200) {
+      res.status(response.statusCode).send({ error: 'An error occurred! Please contact Administrator.' })
+    } else {
+      tokenToApp(JSON.parse(response.body)).then( (data) => {
+        res.json(data)
+      }).catch( (e) => {
+        res.status(500).send({ error: 'An error occurred! Please contact Administrator.' })
+      })
+    }
+  })
+}
+
+const tokenToApp = (obj) => {
+  return new Promise( (response, reject) => {
+    obj = {
+      token: obj.access_token,
+      mobile: obj.subscriber_number
+    }
+    request.post({
+      url: config.counter_app.tokenURI,
+      form: obj
+    }, (error, resp, body) => {
+      if(error || resp.statusCode != 200) {
+        reject({ error: 'An error occurred! Please contact Administrator.' })
+      } else {
+        response(JSON.parse(resp.body))
+      }
+    })
+  })
+}
+
 /**
   URL params
   - access_token
@@ -19,7 +66,7 @@ const stellarApi = config.url
   - from (sender's last 4 digit)
   - message
 */
-exports.send = function(req, res) {
+exports.send = (req, res) => {
   const access_token = req.query.access_token
   const r = req.body,
     receiver = r.to,
@@ -39,7 +86,7 @@ exports.send = function(req, res) {
   request.post({
     url: config.sendURI + config.shortCode + "/requests?access_token=" + access_token,
     form: obj
-  }, function(error, response, body) {
+  }, (error, response, body) => {
     if(error || response.statusCode != 200) {
       res.status(response.statusCode).send({ error: 'An error occurred! Please contact Administrator.' })
     } else {
@@ -70,11 +117,11 @@ exports.send = function(req, res) {
     }
   }
 */
-exports.receive = function(req, res) {
+exports.receive = (req, res) => {
   request.post({
     url: config.receivedURI,
     form: req.body
-  }, function(error, response, body) {
+  }, (error, response, body) => {
     if(error || response.statusCode != 200) {
       res.status(response.statusCode).send({ error: 'An error occurred! Please contact Administrator.' })
     } else {

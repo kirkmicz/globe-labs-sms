@@ -7,4 +7,7 @@ module.exports = function(app) {
 
   app.route('/receive')
     .post(api.receive)
+
+  app.route('/subscribe')
+    .get(api.subscribe)
 }

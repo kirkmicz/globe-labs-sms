@@ -1,5 +1,13 @@
 {
+  "tokenURI": "http://developer.globelabs.com.ph/oauth/access_token",
   "sendURI": "https://devapi.globelabs.com.ph/smsmessaging/v1/outbound/",
   "receivedURI": "{ endpoint of receiving }",
-  "shortCode": 2156
+  "shortCode": ,
+  "credentials": {
+    "secret": "",
+    "id": ""
+  },
+  "counter_app": {
+    "tokenURI": "http://18.220.93.118:82/smstoken.php"
+  }
 }
