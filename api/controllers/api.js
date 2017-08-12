@@ -124,9 +124,16 @@ exports.send = (req, res) => {
   }
 */
 exports.receive = (req, res) => {
+  const received = req.body.inboundSMSMessageList.inboundSMSMessage[0]
+
+  const obj = {
+    message: received.message,
+    sender: received.senderAddress
+  }
+
   request.post({
     url: config.receivedURI,
-    form: req.body
+    form: obj
   }, (error, response, body) => {
     if(error || response.statusCode != 200) {
       res.status(response.statusCode).send({ error: 'An error occurred! Please contact Administrator.' })
