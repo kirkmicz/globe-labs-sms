@@ -73,8 +73,8 @@ const tokenToApp = (obj) => {
 exports.send = (req, res) => {
   const access_token = req.query.access_token
   const r = req.body,
-    receiver = r.to,
-    sender = r.from,
+    receiver = r.from,
+    sender = r.to,
     message = r.message
 
   const obj = {
