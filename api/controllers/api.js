@@ -79,8 +79,8 @@ exports.send = (req, res) => {
 
   const obj = {
     outboundSMSMessageRequest: {
-      address: receiver,
-      senderAddress: sender,
+      address: sender,
+      senderAddress: receiver,
       outboundSMSTextMessage: {
         message: message
       }
@@ -92,7 +92,9 @@ exports.send = (req, res) => {
     form: obj
   }, (error, response, body) => {
     if(error || response.statusCode != 200) {
-      res.status(response.statusCode).send({ error: 'An error occurred! Please contact Administrator.' })
+      const errMsg = (response.body != null ? JSON.parse(response.body)
+        : { error: 'An error occurred! Please contact Administrator.' })
+      res.status(response.statusCode).send(errMsg)
     } else {
       res.json(JSON.parse(response.body))
     }
